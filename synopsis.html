@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Synopsis - CloudShield</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12pt;
+      line-height: 1.5;
+      color: #111;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Arial', sans-serif;
+      color: #0d2b45;
+    }
+    h1 {
+      font-size: 18pt;
+      text-align: center;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    .sub-title {
+      font-size: 13pt;
+      text-align: center;
+      color: #203c56;
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+    .header-box {
+      border: 2px solid #0d2b45;
+      padding: 15px;
+      margin-bottom: 25px;
+      background-color: #f7f9fa;
+    }
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .header-table td {
+      padding: 4px 8px;
+      font-size: 11pt;
+    }
+    h2 {
+      font-size: 14pt;
+      border-bottom: 1.5px solid #0d2b45;
+      padding-bottom: 4px;
+      margin-top: 25px;
+      text-transform: uppercase;
+    }
+    h3 {
+      font-size: 12pt;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: #1a4a75;
+    }
+    p, li {
+      text-align: justify;
+    }
+    ul, ol {
+      margin-top: 5px;
+      padding-left: 25px;
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 10.5pt;
+    }
+    table.data-table th, table.data-table td {
+      border: 1px solid #777;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    table.data-table th {
+      background-color: #e9eff5;
+      color: #0d2b45;
+    }
+    pre {
+      background: #f1f4f8;
+      border: 1px solid #cbd5e1;
+      padding: 10px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 9.5pt;
+      overflow-x: auto;
+    }
+    .sig-section {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .sig-box {
+      width: 45%;
+      margin-top: 30px;
+    }
+    @media print {
+      body {
+        padding: 0;
+      }
+      .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print" style="background: #e0f2fe; padding: 10px; text-align: center; border-radius: 6px; margin-bottom: 20px; font-family: Arial, sans-serif;">
+    💡 <strong>Tip for Printing / PDF:</strong> Press <kbd>Ctrl + P</kbd> on your keyboard, select <em>"Save as PDF"</em>, and click Save!
+  </div>
+
+  <h1>CLOUDSHIELD: Intelligent Cloud Security Monitoring & Threat Detection Platform</h1>
+  <div class="sub-title">A Freemium, Multi-Tenant Cloud-Based Cybersecurity SaaS Platform</div>
+
+  <div class="header-box">
+    <table class="header-table">
+      <tr>
+        <td><strong>Candidate Name:</strong></td>
+        <td>Veeresh</td>
+        <td><strong>Department:</strong></td>
+        <td>School of Computer Science & Applications</td>
+      </tr>
+      <tr>
+        <td><strong>USN / Roll No:</strong></td>
+        <td>________________________</td>
+        <td><strong>Degree / Course:</strong></td>
+        <td>Bachelor of Computer Applications (BCA)</td>
+      </tr>
+      <tr>
+        <td><strong>Institution:</strong></td>
+        <td>KLE Technological University</td>
+        <td><strong>Project Domain:</strong></td>
+        <td>Cloud Computing & Cybersecurity</td>
+      </tr>
+      <tr>
+        <td><strong>Academic Session:</strong></td>
+        <td>2026 – 2027</td>
+        <td><strong>Project Guide:</strong></td>
+        <td>________________________</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>1. Abstract</h2>
+  <p>
+    Modern digital organizations rely heavily on cloud applications, web services, and APIs. However, every digital action generates large streams of audit logs, making manual monitoring impossible. Without automated detection, critical cyberattacks—including brute-force credential stuffing, Distributed Denial of Service (DDoS), privilege escalation, and anomalous proxy logins—can proceed undetected until catastrophic damage occurs.
+  </p>
+  <p>
+    <strong>CloudShield</strong> is an intelligent, multi-tenant cloud security monitoring and threat detection platform (Mini SIEM) built as a <strong>Freemium Software-as-a-Service (SaaS)</strong> solution. It enables multiple client organizations to register, connect remote applications, ingest activity logs in real time, and evaluate events against an automated security detection engine. The platform operates on a freemium model: core audit logging and rule-based threat mitigation are provided free of cost, while advanced features—including AI/ML anomaly detection and deep forensics—are unlocked via paid subscription tiers. Containerized with Docker, CloudShield offers high scalability, minimal latency, and full cloud portability.
+  </p>
+
+  <h2>2. Introduction & Background</h2>
+  <p>
+    Security Information and Event Management (SIEM) systems serve as the operational core of modern Security Operations Centers (SOC). However, traditional enterprise SIEM platforms (e.g., Splunk, IBM QRadar) demand expensive on-premise hardware, specialized system engineers, and complex licensing, creating an insurmountable barrier for small-and-medium enterprises (SMEs) and academic labs.
+  </p>
+  <p>
+    By adopting <strong>Security as a Service (SECaaS)</strong> and cloud multi-tenancy, a single centralized monitoring infrastructure can serve multiple independent organizations simultaneously. Each tenant organization maintains complete logical data isolation while benefiting from high-availability cloud compute resources and automated threat response.
+  </p>
+
+  <h2>3. Problem Statement</h2>
+  <ul>
+    <li><strong>Information Overload:</strong> Cloud platforms generate thousands of events per minute; manual inspection of audit logs is impossible.</li>
+    <li><strong>Prohibitive Commercial Cost:</strong> Existing commercial SIEM solutions impose heavy infrastructure costs, excluding small businesses and startups.</li>
+    <li><strong>Delayed Incident Response:</strong> Most monitoring tools analyze logs post-incident in batch cycles rather than performing sub-second, real-time threat mitigation.</li>
+    <li><strong>Lack of Academic Demonstration Platforms:</strong> Most security tools are closed proprietary black boxes, making it difficult for students and researchers to safely simulate and observe live cyberattacks.</li>
+  </ul>
+
+  <h2>4. Objectives of the Project</h2>
+  <ol>
+    <li><strong>Design a Multi-Tenant Cloud Architecture:</strong> Support multiple tenant organizations with strict logical data isolation on a shared cloud database.</li>
+    <li><strong>Real-Time Log Ingestion:</strong> Centralize event audit streams capturing action codes, timestamps, IPv4 addresses, user agents, and status.</li>
+    <li><strong>Automated Detection Engine:</strong> Implement real-time sliding-window algorithms to detect Brute Force attacks, DDoS surges, unauthorized escalation, and Tor proxy IPs.</li>
+    <li><strong>Freemium Feature Gating:</strong> Enforce server-side authorization separating free-tier basic features from paid-tier advanced AI analytics.</li>
+    <li><strong>Interactive SOC Dashboard:</strong> Provide real-time security visibility with aggregate metric counters, live severity-coded alert feeds, and audit log tables.</li>
+    <li><strong>Real-Time Live Ingestion Gateway:</strong> Build an authentic REST API endpoint (<code>POST /api/v1/events</code>) and standalone client agent (<code>agent.py</code>) enabling external servers and cloud workloads to stream real security events over HTTP.</li>
+    <li><strong>Cloud Portability & Containerization:</strong> Package the microservice using Docker and Docker Compose for instant cloud deployment (AWS/Azure).</li>
+  </ol>
+
+  <h2>5. System Architecture</h2>
+  <pre>
+┌────────────────────────────────────────────────────────┐
+│        Client Web Apps / Cloud Remote Servers          │
+└───────────────────────────┬────────────────────────────┘
+                            │ HTTPS / REST API
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│          FastAPI Gateway & Auth Controller             │
+│    (Input Validation via Pydantic & SHA-256 Auth)      │
+└─────────────┬───────────────────────────┬──────────────┘
+              │                           │
+              ▼                           ▼
+┌───────────────────────────┐ ┌───────────────────────────┐
+│  Subscription & Tenant    │ │  Security Detection Engine│
+│  Access Guard             │ │  • Rule-Based Evaluator   │
+│  (Free vs. Pro Tier)      │ │  • ML Anomaly Scorer      │
+└─────────────┬─────────────┘ └───────────┬───────────────┘
+              │                           │
+              └─────────────┬─────────────┘
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│     Multi-Tenant Database (SQLite / PostgreSQL)        │
+│  (Companies, Subscriptions, Activity Logs, Alerts)     │
+└───────────────────────────┬────────────────────────────┘
+                            │ Asynchronous Polling (3s)
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│          Interactive Web SOC Dashboard                 │
+│      (HTML5, CSS3 Cyber Theme, Vanilla JS)             │
+└────────────────────────────────────────────────────────┘
+  </pre>
+
+  <h2>6. Key Modules & Functional Description</h2>
+  <ul>
+    <li><strong>Module 1: Company & Multi-Tenant Management:</strong> Isolates company accounts using unique <code>company_id</code> keys, ensuring absolute data privacy between tenants.</li>
+    <li><strong>Module 2: Authentication & Cryptographic Security:</strong> Employs SHA-256 cryptographic one-way hashing to protect user credentials and enforces role-based permissions (Admin vs. User).</li>
+    <li><strong>Module 3: Centralized Audit Logging (SIEM Vault):</strong> Ingests and stores comprehensive audit records using parameterized SQL execution to prevent SQL injection.</li>
+    <li><strong>Module 4: Real-Time Detection Rule Engine:</strong>
+      <ul>
+        <li><em>Brute Force Rule (CRITICAL):</em> Triggers when &ge; 3 failed logins occur from the same IP/username in 5 minutes.</li>
+        <li><em>DDoS Surge Rule (HIGH):</em> Triggers when &ge; 15 HTTP requests arrive in 60 seconds from a single IP.</li>
+        <li><em>Privilege Escalation Rule (HIGH):</em> Alerts when unprivileged users attempt restricted administrative routes.</li>
+        <li><em>Tor / Malicious Proxy Rule (MEDIUM):</em> Flags logins originating from known Tor exit nodes (e.g., <code>185.220.*</code>).</li>
+      </ul>
+    </li>
+    <li><strong>Module 5: AI / Machine Learning Anomaly Detection (Pro Tier):</strong> Leverages Scikit-Learn Isolation Forests to detect statistical anomalies in user request volume and abnormal login hours.</li>
+    <li><strong>Module 6: Freemium Subscription Gating:</strong> Gating engine with Free (₹0), Professional (₹999), and Enterprise plans, complete with a test sandbox upgrade simulator.</li>
+    <li><strong>Module 7: Cyber SOC Dashboard:</strong> Live dashboard with 3-second asynchronous polling, severity-coded threat cards, and one-click alert resolution.</li>
+    <li><strong>Module 8: Real-Time Event Ingestion Gateway & Terminal Agent:</strong> Authentic live HTTP ingestion API with API key authentication, live browser dispatcher, and standalone Python streaming client (<code>agent.py</code>).</li>
+  </ul>
+
+  <h2>7. Database Schema Design</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Table Name</th>
+        <th>Primary Key</th>
+        <th>Foreign Key</th>
+        <th>Key Columns & Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>companies</code></td>
+        <td><code>company_id</code></td>
+        <td>None</td>
+        <td><code>company_name</code>, <code>api_key</code>, <code>created_at</code> (Tenant isolation)</td>
+      </tr>
+      <tr>
+        <td><code>plans</code></td>
+        <td><code>plan_id</code></td>
+        <td>None</td>
+        <td><code>plan_name</code> (FREE / PRO), <code>price</code>, <code>retention_days</code></td>
+      </tr>
+      <tr>
+        <td><code>subscriptions</code></td>
+        <td><code>subscription_id</code></td>
+        <td><code>company_id</code>, <code>plan_id</code></td>
+        <td><code>status</code> (ACTIVE / EXPIRED), <code>start_date</code>, <code>end_date</code></td>
+      </tr>
+      <tr>
+        <td><code>users</code></td>
+        <td><code>id</code></td>
+        <td><code>company_id</code></td>
+        <td><code>username</code>, <code>email</code>, <code>password_hash</code>, <code>role</code></td>
+      </tr>
+      <tr>
+        <td><code>activity_logs</code></td>
+        <td><code>id</code></td>
+        <td><code>company_id</code></td>
+        <td><code>timestamp</code>, <code>action</code>, <code>ip_address</code>, <code>user_agent</code>, <code>status</code></td>
+      </tr>
+      <tr>
+        <td><code>security_alerts</code></td>
+        <td><code>id</code></td>
+        <td><code>company_id</code></td>
+        <td><code>alert_type</code>, <code>severity</code>, <code>source_ip</code>, <code>status</code>, <code>mitigation_action</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>8. System Requirements</h2>
+  <ul>
+    <li><strong>Backend Framework:</strong> Python 3.13, FastAPI, Uvicorn (ASGI)</li>
+    <li><strong>Data Validation & Security:</strong> Pydantic, Hashlib (SHA-256)</li>
+    <li><strong>Database:</strong> SQLite (Embedded RDBMS) / PostgreSQL Ready</li>
+    <li><strong>Machine Learning:</strong> Scikit-learn (Isolation Forest)</li>
+    <li><strong>Frontend Stack:</strong> HTML5, CSS3 (Cyberpunk SOC Theme), Vanilla JavaScript (ES6+)</li>
+    <li><strong>Cloud Containerization:</strong> Docker, Docker Compose</li>
+    <li><strong>Hardware Requirements:</strong> Intel Core i3 / AMD Ryzen 3, 4 GB RAM, 500 MB Storage</li>
+  </ul>
+
+  <h2>9. Expected Project Outcomes</h2>
+  <ol>
+    <li>A containerized, multi-tenant cloud cybersecurity platform running live on a web browser.</li>
+    <li>Demonstrated real-time attack mitigation against automated Brute Force and DDoS traffic surges.</li>
+    <li>A functional SaaS subscription business model featuring live sandbox plan upgrades.</li>
+    <li>Complete compliance with modern cloud-native standards (REST API, stateless backend, containerization).</li>
+  </ol>
+
+  <div class="sig-section">
+    <div class="sig-box">
+      <br><br>
+      ____________________________________<br>
+      <strong>Student Signature (Veeresh)</strong><br>
+      Date: ________________________
+    </div>
+    <div class="sig-box" style="text-align: right;">
+      <br><br>
+      ____________________________________<br>
+      <strong>Guide / HOD Signature</strong><br>
+      KLE Technological University
+    </div>
+  </div>
+
+</body>
+</html>

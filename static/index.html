@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudShield - Freemium Cloud Cybersecurity Platform (SIEM)</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-icon">🛡️</div>
+      <div>
+        <div class="brand-title">CLOUDSHIELD</div>
+        <div class="brand-subtitle">Freemium Cloud Security & AI Threat Platform</div>
+      </div>
+    </div>
+
+    <!-- Multi-Tenant Organization Switcher -->
+    <div class="tenant-bar">
+      <span style="font-size: 0.75rem; color: var(--text-muted);">TENANT:</span>
+      <select id="tenantSelect" class="tenant-select" onchange="changeTenant(this.value)">
+        <option value="1">Acme Cloud Systems</option>
+        <option value="2">Nexus Cyber Tech</option>
+      </select>
+      <span id="tenantPlanBadge" class="plan-badge FREE">FREE PLAN</span>
+      <button id="upgradeNavBtn" class="btn-upgrade-nav" onclick="openModal('pricingModal')">
+        ⚡ Upgrade to Pro
+      </button>
+      <button class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;" onclick="openModal('companyModal')">
+        ➕ New Tenant
+      </button>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn btn-secondary" onclick="openModal('agentModal')">📡 Live Agent</button>
+      <button class="btn btn-secondary" onclick="openModal('vivaModal')">📐 Viva Defense Guide</button>
+      <button class="btn btn-primary" onclick="openModal('authModal')">🔑 Test Login</button>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Top Metrics Row -->
+    <div class="metrics-grid">
+      <div class="card card-glow-cyan">
+        <div class="card-title">TOTAL AUDIT LOGS</div>
+        <div class="card-value" id="metricTotalLogs">0</div>
+        <div class="card-desc">Tenant events ingested</div>
+      </div>
+      <div class="card card-glow-green">
+        <div class="card-title">NORMAL EVENTS</div>
+        <div class="card-value" id="metricNormalLogs" style="color: var(--severity-low);">0</div>
+        <div class="card-desc">Verified traffic</div>
+      </div>
+      <div class="card card-glow-orange">
+        <div class="card-title">SUSPICIOUS EVENTS</div>
+        <div class="card-value" id="metricSuspiciousLogs" style="color: var(--severity-high);">0</div>
+        <div class="card-desc">Rule violations flagged</div>
+      </div>
+      <div class="card card-glow-red">
+        <div class="card-title">ACTIVE INCIDENTS</div>
+        <div class="card-value" id="metricActiveAlerts" style="color: var(--severity-critical);">0</div>
+        <div class="card-desc">Critical alerts unresolved</div>
+      </div>
+    </div>
+
+    <!-- Real-Time Live Security Ingestion Gateway -->
+    <section class="gateway-panel">
+      <div class="gateway-header">
+        <div class="gateway-title">
+          <span>📡 REAL-TIME EVENT INGESTION GATEWAY</span>
+          <span class="live-pulse-badge">
+            <span class="pulse-dot"></span> LIVE INGESTION ACTIVE
+          </span>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;" onclick="copyApiKey()">
+            📋 Copy Tenant API Key
+          </button>
+          <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;" onclick="refreshDashboard()">
+            🔄 Refresh SOC
+          </button>
+        </div>
+      </div>
+
+      <!-- Ingestion Credentials & Endpoint Bar -->
+      <div class="gateway-creds-bar">
+        <div class="cred-item">
+          <span class="cred-label">LIVE INGESTION ENDPOINT:</span>
+          <code class="cred-value" id="gatewayEndpoint">POST /api/v1/events</code>
+        </div>
+        <div class="cred-item">
+          <span class="cred-label">TENANT API KEY:</span>
+          <code class="cred-value" id="gatewayApiKey">loading...</code>
+        </div>
+        <div class="cred-item">
+          <span class="cred-label">TERMINAL AGENT:</span>
+          <code class="cred-value">python agent.py --stream</code>
+        </div>
+      </div>
+
+      <!-- Quick Live Probe & Dispatch Form -->
+      <div class="gateway-body">
+        <div class="dispatcher-card">
+          <div class="dispatcher-header">
+            <div>
+              <span style="font-weight: 700; color: #fff; font-size: 0.9rem;">⚡ Live Event Dispatcher (Real Network Probe)</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 0.2rem;">Dispatches authentic HTTP events directly to <code>/api/v1/events</code> in real time</span>
+            </div>
+            <!-- Quick Presets -->
+            <div class="preset-buttons">
+              <button type="button" class="preset-btn" onclick="applyProbePreset('brute-force')">💥 Failed Login</button>
+              <button type="button" class="preset-btn" onclick="applyProbePreset('privilege')">🚫 Privilege Access</button>
+              <button type="button" class="preset-btn" onclick="applyProbePreset('tor')">🕵️ Tor Proxy IP</button>
+              <button type="button" class="preset-btn" onclick="applyProbePreset('normal')">🌱 Normal Traffic</button>
+            </div>
+          </div>
+
+          <form id="liveEventForm" onsubmit="handleLiveEventSubmit(event)" class="live-event-form">
+            <div class="form-row">
+              <div class="form-col">
+                <label class="form-label-sm">Action Type</label>
+                <input type="text" id="liveAction" class="form-input-sm" value="LOGIN_FAILED" required>
+              </div>
+              <div class="form-col">
+                <label class="form-label-sm">Target Username</label>
+                <input type="text" id="liveUser" class="form-input-sm" value="admin" required>
+              </div>
+              <div class="form-col">
+                <label class="form-label-sm">Source IP Address</label>
+                <input type="text" id="liveIp" class="form-input-sm" value="192.168.1.105" required>
+              </div>
+              <div class="form-col">
+                <label class="form-label-sm">Result Status</label>
+                <select id="liveStatus" class="form-input-sm">
+                  <option value="FAILURE" selected>FAILURE</option>
+                  <option value="SUCCESS">SUCCESS</option>
+                  <option value="BLOCKED">BLOCKED</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" style="margin-top: 0.75rem; align-items: flex-end;">
+              <div class="form-col" style="flex: 3;">
+                <label class="form-label-sm">Security Event Details / Metadata</label>
+                <input type="text" id="liveDetails" class="form-input-sm" value="Live authentication failure from external security probe" required>
+              </div>
+              <div class="form-col" style="flex: 1;">
+                <button type="submit" id="btnSendLiveEvent" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.55rem 1rem; font-size: 0.85rem;">
+                  🚀 Transmit Event
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRO FEATURE: AI & Machine Learning Anomaly Detection Card -->
+    <section class="ai-section">
+      <div class="ai-header">
+        <div class="ai-title">
+          <span>🧠 Machine Learning Anomaly Detection Engine</span>
+          <span style="font-size: 0.75rem; font-weight: normal; color: var(--text-muted);">(Behavioral Isolation Model)</span>
+        </div>
+        <div id="aiPlanStatusTag">
+          <span class="plan-badge FREE">LOCKED ON FREE TIER</span>
+        </div>
+      </div>
+
+      <!-- View 1: When Feature is Locked (Free Plan) -->
+      <div id="aiLockedContainer" class="ai-locked-overlay">
+        <div class="lock-shield-icon">🔒</div>
+        <h3 style="color: #fff; margin-bottom: 0.4rem;">AI Anomaly Detection is Locked</h3>
+        <p style="color: var(--text-muted); max-width: 580px; font-size: 0.88rem;">
+          Your company is currently on the <strong>Free Tier</strong>. Advanced behavioral anomaly scoring, multi-dimensional velocity deviation tracking, and automated quarantine are exclusive to <strong>Professional & Enterprise</strong> subscribers.
+        </p>
+
+        <div class="preview-features-grid">
+          <div class="preview-pill">✓ Multi-Dimensional Isolation Scoring</div>
+          <div class="preview-pill">✓ Off-Hours Access Deviation Analysis</div>
+          <div class="preview-pill">✓ Micro-Burst Velocity Anomaly Flags</div>
+          <div class="preview-pill">✓ Automated 2FA Security Challenges</div>
+        </div>
+
+        <button class="btn btn-primary btn-glow" style="padding: 0.65rem 1.6rem; font-size: 0.9rem;" onclick="openModal('pricingModal')">
+          ⚡ Upgrade to Professional (₹999/mo)
+        </button>
+      </div>
+
+      <!-- View 2: When Feature is Unlocked (Pro Plan) -->
+      <div id="aiUnlockedContainer" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div style="font-size: 0.85rem; color: var(--severity-low); font-weight: 600;">
+            ✓ Live AI Behavioral Engine Active • Continuous Tenant Scanning
+          </div>
+          <button class="btn btn-secondary" style="font-size: 0.78rem; padding: 0.35rem 0.8rem;" onclick="fetchAiAnomalies()">
+            ⚡ Re-scan Behavioral Model
+          </button>
+        </div>
+        <div class="anomaly-cards-grid" id="aiAnomalyFeed">
+          <!-- Dynamically populated anomaly cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Main 2-Column Grid -->
+    <div class="dashboard-columns">
+      
+      <!-- Left Column: Active Security Alerts -->
+      <div>
+        <div class="section-title">
+          <span>🚨 Live Security Threat Feed</span>
+          <span id="alertCountBadge" class="alert-badge CRITICAL">0 ACTIVE</span>
+        </div>
+        <div class="alert-feed" id="alertFeedContainer">
+          <div style="text-align: center; color: var(--text-dim); padding: 2rem;">Loading security alerts...</div>
+        </div>
+      </div>
+
+      <!-- Right Column: Audit Log Vault -->
+      <div>
+        <div class="section-title" style="display: flex; justify-content: space-between; align-items: center;">
+          <span>📋 Real-Time Activity Log Vault</span>
+          <div style="display: flex; gap: 0.4rem;">
+            <button class="btn btn-secondary" style="padding: 0.25rem 0.6rem; font-size: 0.72rem;" onclick="exportAuditLogs()">
+              📥 Export CSV
+            </button>
+            <button class="btn btn-secondary" style="padding: 0.25rem 0.6rem; font-size: 0.72rem;" onclick="exportIncidentsJson()">
+              📥 Export JSON
+            </button>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Action</th>
+                  <th>User</th>
+                  <th>IP Address</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="logsTableBody">
+                <tr>
+                  <td colspan="5" style="text-align: center; color: var(--text-dim); padding: 2rem;">Loading activity logs...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Modal 1: Test User Authentication Portal -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">🔐 Test User Login Portal</div>
+        <button class="close-btn" onclick="closeModal('authModal')">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Test real authentication requests. Entering an incorrect password 3 times will automatically trigger the <strong>Brute Force Security Alert</strong>!
+      </p>
+      <form id="loginForm" onsubmit="handleTestLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" id="loginUsername" class="form-input" value="student_user" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="Enter password (User@123)" required>
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Login Attempt</button>
+          <button type="button" class="btn btn-danger" style="flex: 1;" onclick="handleWrongLogin()">Simulate Wrong Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: System Architecture & Viva Guide -->
+  <div class="modal-overlay" id="vivaModal">
+    <div class="modal-box" style="max-width: 720px;">
+      <div class="modal-header">
+        <div class="modal-title">📐 Architecture & Academic Viva Defense Guide</div>
+        <button class="close-btn" onclick="closeModal('vivaModal')">&times;</button>
+      </div>
+      <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.6; max-height: 480px; overflow-y: auto; padding-right: 0.5rem;">
+        <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">1. Multi-Tenant Cloud SaaS Model</h4>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          CloudShield acts as a central cloud host. Multiple tenant companies securely share a single centralized database and backend logic, partitioned cleanly by <code>company_id</code> to guarantee 100% logical data isolation.
+        </p>
+
+        <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">2. Freemium Security Gating</h4>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          Basic audit logging and rule-based threat mitigation are provided free of cost (₹0/mo). Advanced capabilities—such as <strong>AI/ML Anomaly Detection</strong>—are securely feature-gated on the backend and unlocked when upgrading to the Professional plan.
+        </p>
+
+        <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">3. Threat Detection Rules</h4>
+        <ul style="color: var(--text-muted); margin-left: 1.2rem; margin-bottom: 1rem;">
+          <li><strong>Brute Force Rule:</strong> &ge; 3 failed login attempts from same IP in 5 mins &rarr; Critical Alert.</li>
+          <li><strong>DDoS Surge Rule:</strong> &ge; 15 HTTP requests in 60 seconds from single IP &rarr; High Alert.</li>
+          <li><strong>Privilege Escalation Rule:</strong> Unauthorized endpoint access attempt &rarr; High Alert.</li>
+          <li><strong>Tor / Malicious Proxy Rule:</strong> Logins from recognized Tor exit node IPs &rarr; Medium Alert.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Freemium Pricing & Upgrade Sandbox Checkout -->
+  <div class="modal-overlay" id="pricingModal">
+    <div class="modal-box" style="max-width: 820px;">
+      <div class="modal-header">
+        <div class="modal-title">💎 Choose Subscription Plan</div>
+        <button class="close-btn" onclick="closeModal('pricingModal')">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Select a plan for your active organization. Upgrading triggers an automated sandbox checkout simulation that unlocks premium capabilities in real time.
+      </p>
+
+      <div class="pricing-matrix">
+        <!-- Tier 1: Free -->
+        <div class="tier-box">
+          <div>
+            <h4 style="color: #9ca3af;">FREE TIER</h4>
+            <div class="tier-price">₹0 <small>/ month</small></div>
+            <ul class="tier-features">
+              <li>✓ Real-Time Audit Logging</li>
+              <li>✓ Brute Force Detection</li>
+              <li>✓ Basic SOC Dashboard</li>
+              <li>✓ 7-Day Log Retention</li>
+              <li style="color: var(--text-dim); text-decoration: line-through;">❌ AI Anomaly Detection</li>
+              <li style="color: var(--text-dim); text-decoration: line-through;">❌ Automated Email Alerts</li>
+            </ul>
+          </div>
+          <button class="btn btn-secondary" style="width: 100%;" disabled>Current Base Plan</button>
+        </div>
+
+        <!-- Tier 2: Professional -->
+        <div class="tier-box popular">
+          <div class="popular-tag">MOST POPULAR</div>
+          <div>
+            <h4 style="color: var(--accent-cyan);">PROFESSIONAL</h4>
+            <div class="tier-price">₹999 <small>/ month</small></div>
+            <ul class="tier-features">
+              <li>✓ Everything in Free</li>
+              <li>✓ <strong>AI Behavioral Anomaly Engine</strong></li>
+              <li>✓ Velocity Deviation Tracking</li>
+              <li>✓ Off-Hours Forensics</li>
+              <li>✓ 30-Day Log Retention</li>
+              <li>✓ Instant Mitigation Actions</li>
+            </ul>
+          </div>
+          <button id="btnUpgradePro" class="btn btn-primary btn-glow" style="width: 100%;" onclick="simulateUpgrade('PROFESSIONAL')">
+            ⚡ Upgrade with Sandbox Pay
+          </button>
+        </div>
+
+        <!-- Tier 3: Enterprise -->
+        <div class="tier-box">
+          <div>
+            <h4 style="color: #f472b6;">ENTERPRISE</h4>
+            <div class="tier-price">Custom</div>
+            <ul class="tier-features">
+              <li>✓ Everything in Professional</li>
+              <li>✓ Custom Detection Rules</li>
+              <li>✓ Dedicated Cloud SOC Pod</li>
+              <li>✓ Unlimited Audit Retention</li>
+              <li>✓ 24/7 Priority Response</li>
+            </ul>
+          </div>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="simulateUpgrade('ENTERPRISE')">
+            Contact Sales
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Onboard New Tenant Company -->
+  <div class="modal-overlay" id="companyModal">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title">🏢 Onboard New Organization (Tenant)</div>
+        <button class="close-btn" onclick="closeModal('companyModal')">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Register a new company on the CloudShield platform. Each company receives isolated audit storage and a default <strong>FREE Plan</strong>.
+      </p>
+      <form id="companyRegisterForm" onsubmit="handleCompanyRegister(event)">
+        <div class="form-group">
+          <label class="form-label">Organization / Company Name</label>
+          <input type="text" id="newCompanyName" class="form-input" placeholder="e.g. Infosys Cloud Services" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Company Domain</label>
+          <input type="text" id="newCompanyDomain" class="form-input" placeholder="e.g. infosys.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Admin Username</label>
+          <input type="text" id="newCompanyAdminUser" class="form-input" placeholder="e.g. infy_admin" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Admin Email Address</label>
+          <input type="email" id="newCompanyAdminEmail" class="form-input" placeholder="e.g. security@infosys.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Admin Password</label>
+          <input type="password" id="newCompanyPassword" class="form-input" placeholder="Enter secure password" required>
+        </div>
+        <div style="margin-top: 1.5rem;">
+          <button type="submit" id="btnCreateTenant" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.75rem;">
+            🚀 Create Tenant & Launch FREE SIEM
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 5: Live Client Agent & Real-Time API Integration -->
+  <div class="modal-overlay" id="agentModal">
+    <div class="modal-box" style="max-width: 740px;">
+      <div class="modal-header">
+        <div class="modal-title">📡 Real-Time Client Agent & Log Streamer</div>
+        <button class="close-btn" onclick="closeModal('agentModal')">&times;</button>
+      </div>
+      <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.6; max-height: 480px; overflow-y: auto; padding-right: 0.5rem;">
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          CloudShield includes a standalone, zero-dependency Python client agent (<code>agent.py</code>) that streams authentic security events over the network in real time.
+        </p>
+
+        <h4 style="color: var(--accent-cyan); margin-bottom: 0.4rem;">1. Terminal Agent Quick Commands</h4>
+        <pre class="code-box"><code># Verify Gateway Connectivity
+python agent.py --status
+
+# Continuous Live Streaming (Telemetry & Audit events every 3s)
+python agent.py --stream
+
+# Transmit Real Live Attack Traffic (Over HTTP API)
+python agent.py --attack brute-force
+python agent.py --attack ddos
+python agent.py --attack unauthorized
+python agent.py --attack tor-exit</code></pre>
+
+        <h4 style="color: var(--accent-cyan); margin-top: 1.25rem; margin-bottom: 0.4rem;">2. Ingest Events via cURL (Any Server / VM)</h4>
+        <pre class="code-box"><code>curl -X POST http://127.0.0.1:8000/api/v1/events \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: acme_sec_live_9921" \
+  -d '{
+    "action": "LOGIN_FAILED",
+    "username": "admin",
+    "ip_address": "192.168.1.105",
+    "status": "FAILURE",
+    "details": "Rapid invalid password trial"
+  }'</code></pre>
+
+        <h4 style="color: var(--accent-cyan); margin-top: 1.25rem; margin-bottom: 0.4rem;">3. Connect Python Web Applications (FastAPI / Flask / Django)</h4>
+        <pre class="code-box"><code>import urllib.request, json
+
+def push_cloudshield_audit(action, username, ip, status, details):
+    payload = json.dumps({
+        "api_key": "acme_sec_live_9921",
+        "action": action,
+        "username": username,
+        "ip_address": ip,
+        "status": status,
+        "details": details
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        "http://127.0.0.1:8000/api/v1/events",
+        data=payload,
+        headers={"Content-Type": "application/json"}
+    )
+    urllib.request.urlopen(req)</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
