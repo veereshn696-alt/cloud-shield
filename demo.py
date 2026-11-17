@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-CloudShield: Automated End-to-End Academic Viva Showcase Script
-Author: Veeresh (KLE Technological University, BCA Final Year)
+CloudShield: End-to-End System Integration & Threat Detection Runner
+Author: Veeresh
 
 Description:
-    Runs an automated, interactive 2-minute live showcase demonstrating
-    all 6 core pillars of the CloudShield Cybersecurity SaaS Platform:
+    Runs an interactive verification workflow demonstrating
+    the core capabilities of the CloudShield Cybersecurity Platform:
     1. Multi-Tenant Connectivity
     2. Real-Time Security Ingestion Gateway
-    3. Live Brute-Force Threat Detection (< 15ms)
+    3. Live Threat Detection (< 15ms)
     4. Threat Mitigation & Incident Resolution
     5. Freemium Feature Gating (HTTP 403 Locked)
     6. Live Subscription Upgrade & AI Anomaly Engine Activation
@@ -73,10 +73,9 @@ def http_post(url, payload, headers=None):
 def run_showcase(interactive=True):
     print("""
   ======================================================================
-  🛡️  CLOUDSHIELD: FREEMIUM MULTI-TENANT SIEM & AI ANOMALY PLATFORM
+  🛡️  CLOUDSHIELD: MULTI-TENANT SIEM & THREAT DETECTION PLATFORM
   ======================================================================
-  Academic Project Defense Demonstration
-  Candidate: Veeresh | Department of BCA | KLE Technological University
+  End-to-End System Verification & Live Integration Runner
   ======================================================================
     """)
 
@@ -225,10 +224,10 @@ def run_showcase(interactive=True):
             print(f"       • {r}")
         print(f"       Action: {rec.get('mitigation')}\n")
 
-    # --- STEP 9: Summary & Viva Conclusion ---
-    print_header("🎉 ACADEMIC DEMONSTRATION COMPLETE")
+    # --- STEP 9: Summary & Verification Conclusion ---
+    print_header("🎉 PLATFORM VERIFICATION COMPLETE")
     print("""
-  Summary of Demonstrated Capabilities:
+  Summary of Verified Capabilities:
   1. Multi-Tenant Logical Separation (Acme vs Nexus vs CyberDyne)
   2. Live REST Event Ingestion Gateway (POST /api/v1/events)
   3. Real-Time Sliding-Window Threat Engine (< 15ms detection)

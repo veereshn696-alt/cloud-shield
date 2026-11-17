@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 CloudShield Real-Time Client Agent & Log Streamer
-Author: Veeresh (KLE Tech BCA Final Year)
-Platform: CloudShield Freemium Cybersecurity SaaS
+Author: Veeresh
+Platform: CloudShield Cybersecurity SIEM Platform
 
 Description:
     A lightweight, zero-dependency Python client agent that runs on any remote

@@ -194,38 +194,31 @@ Access the containerized platform at `http://localhost:8000`.
 ## 📁 Repository Structure
 
 ```text
-mini_project/
+cloud-shield/
 ├── agent.py                            # Standalone Python client agent & attack generator
-├── demo.py                             # Interactive automated showcase script
-├── main.py                             # FastAPI REST application & routing
+├── demo.py                             # Interactive system verification & integration runner
+├── main.py                             # FastAPI REST application & endpoints
 ├── database.py                         # Multi-tenant SQLite schema & queries
 ├── security_engine.py                  # Sliding-window rule detection algorithms
 ├── ml_engine.py                        # Behavioral anomaly scoring model
-├── start_server.bat                    # 1-Click Windows desktop launcher
+├── start_server.bat                    # Windows 1-click startup launcher
 ├── Dockerfile                          # Container specification
-├── docker-compose.yml                  # Multi-container orchestration
+├── docker-compose.yml                  # Container orchestration
 ├── requirements.txt                    # Project Python dependencies
-├── CloudShield_Seminar_Presentation.pptx # 12-slide academic presentation deck
-├── PROJECT_REPORT.md                   # Full 7-chapter project report
-├── PROJECT_SYNOPSIS.md                 # Academic project synopsis
-├── VIVA_VOCE_GUIDE.md                  # Top 20 Examiner Q&A Guide
 ├── tests/
-│   └── test_cloudshield.py             # 7 Automated Pytest test cases
+│   └── test_cloudshield.py             # Automated Pytest suite
 └── static/
     ├── index.html                      # Dark-mode SOC Cyber Web Dashboard
-    ├── styles.css                      # Modern cybersecurity UI styling
+    ├── styles.css                      # Cybersecurity UI styling
     └── app.js                          # Asynchronous dashboard controller & polling
 ```
 
 ---
 
-## 👤 Author & Academic Details
+## 👤 Author
 
-* **Author:** Veeresh
-* **Degree:** Bachelor of Computer Applications (BCA)
-* **Department:** School of Computer Science & Applications
-* **Institution:** KLE Technological University, Hubballi
-* **Project Domain:** Cloud Computing & Cybersecurity (SECaaS / SIEM)
+* **Veeresh** ([@veereshn696-alt](https://github.com/veereshn696-alt))
+* **Domain:** Cloud Computing & Cybersecurity (SECaaS / SIEM)
 
 ---
 
